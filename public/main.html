@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascripts/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="top">
+        <span>电影推荐</<span>
+    </div>
+
+    <div id="container">
+        <div id="movie-bar">
+            <h4>推荐给&nbsp;
+                <!-- 这里改成用户的信息 -->
+                <a id="user-name" href="#">您的</a>&nbsp;电影</h4>
+            <ul id="movie-items">
+
+                <!-- li标签根据电影数量用循环添加 -->
+                <li class="movie-item">
+                    <a href="#">
+                        <!-- 链接改成电影图片的 -->
+                        <img src="#" alt="" srcset="" class="movie-img">
+                    </a>
+
+                    <div class="movie-info">
+                            <!-- a标签的href指向豆瓣相同的电影页面 -->
+                            <span class="movie-name">
+                                <a href="#" class="name"></a>
+                            </span>
+                            <span class="movie-rank"></span>
+                            <span class="movie-genres"></span>
+                        <div class="summary">
+                            <span class="movie-summary"></span>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="float-clear"></div>
+
+    <div>
+        <div id="middle">
+            <div class="form">
+                <div class="middle-tool">
+                    <!-- <button type="button" id="flash">刷新</input> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div id="bottom">
+
+        </div>
+    </div>
+</body>
+
+<script src="javascripts/index.js"></script>
+</html>
