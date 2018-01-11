@@ -115,17 +115,57 @@ app.post('/login', function (req, res) {
   });
 });
 
+
+/**
+ * 录入看过的电影
+ */
+app.get('/browser', function (req, res) {
+  var userId = req.session.userId
+  if (userId == null) {
+    res.json(JSON.stringify({error:1, message: '会话已经过期'}))
+    return
+  } 
+  console.log('userId', userId)
+
+  
+  const selectSQL = 'select userId from user_image where username = ?'
+  
+  connection.query(selectSQL, [name, password], function (err, results, fields) {
+    console.log('query user')
+    if (err) {
+      console.log(err)
+      res.json(JSON.stringify({error:1}))
+    }else {
+      // console.log(req.cookies)
+      console.log(results)
+      if(results && results.length){
+        req.session.isLogin = true
+        req.session.username = name
+        req.session.userId = results[0].userId
+        console.log(name)
+        console.log(results[0].userId)
+        res.redirect('/main.html')
+        return
+      } 
+    }
+  });
+})
+
 /**
  * 请求movie数据
  */
 app.get('/movies', function (req, res) {
   var userId = req.session.userId
-
+  if (userId == null) {
+    res.json(JSON.stringify({error:1, message: '会话已经过期'}))
+    return
+  } 
+  console.log('userId', userId)
   let jsonData = {}
 
   const selectSQL1 = `select distinct m.movieId, m.movieName, m.genres, m.rank from 
   movies2 as m join user_browser as u on m.movieId = u.movieId where u.userId = ?`
-  const selectSQL2 = 'select * from movies2 order by rand() LIMIT 500'
+  const selectSQL2 = 'select * from movies2 order by rand() LIMIT 1000'
 
   connection.query(selectSQL1, [userId], function (err, results, fields) {
     console.log('query broswer')
@@ -187,6 +227,8 @@ app.get('/movies', function (req, res) {
                 console.log('request', err)
               }
             })
+        } else {
+          res.send(JSON.stringify({error:0, message:"query fail"}))
         }
       })
     }
